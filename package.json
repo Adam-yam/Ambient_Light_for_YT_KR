@@ -4,14 +4,14 @@
   "description": "This browser extension adds ambient light to the videos you view on YouTube",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WesselKroos/youtube-ambilight.git"
+    "url": "git+https://github.com/Adam-yam/Ambient_Light_for_YT_KR.git"
   },
   "author": "Wessel Kroos",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WesselKroos/youtube-ambilight/issues"
+    "url": "https://github.com/Adam-yam/Ambient_Light_for_YT_KR/issues"
   },
-  "homepage": "https://github.com/WesselKroos/youtube-ambilight#readme",
+  "homepage": "https://github.com/Adam-yam/Ambient_Light_for_YT_KR#readme",
   "type": "module",
   "scripts": {
     "build:manifest": "node manifest-copy.js",
