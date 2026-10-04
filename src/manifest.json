@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "name": "Ambient Light for YT_KR",
+  "description": "유튜브 영상의 색상을 주변 조명으로 확장합니다. 원본 기능을 유지한 비공식 한국어 번역판입니다.",
+  "version": "0.0.0",
+  "homepage_url": "https://github.com/WesselKroos/youtube-ambilight",
+  "author": "Wessel Kroos",
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "128": "images/icon-128.png"
+  },
+  "minimum_chrome_version": "121",
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "121.0",
+      "id": "youtube-ambilight-ko@scene-flix.local"
+    }
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/icon-16.png",
+      "24": "images/icon-24.png",
+      "32": "images/icon-32.png"
+    },
+    "default_popup": "options.html"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "exclude_matches": [
+        "https://www.youtube.com/live_chat*",
+        "https://www.youtube.com/embed/*"
+      ],
+      "js": [
+        "scripts/content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/embed/*"
+      ],
+      "js": [
+        "scripts/content.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/live_chat*"
+      ],
+      "exclude_matches": [
+        "https://www.youtube.com/live_chat?is_popout=1*"
+      ],
+      "css": [
+        "styles/live-chat.css"
+      ],
+      "js": [
+        "scripts/live-chat.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "styles/content.css",
+        "scripts/content-main.js",
+        "scripts/injected.js",
+        "images/noise-1.png",
+        "images/noise-2.png",
+        "images/noise-3.png"
+      ],
+      "matches": [
+        "https://www.youtube.com/*"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "storage"
+  ]
+}

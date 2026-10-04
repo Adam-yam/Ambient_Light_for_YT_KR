@@ -1,14 +1,6 @@
-# Privacy policy
-- This extension only runs on tabs that start with the url https://www.youtube.com. The extension will only activate the ambient light effect on YouTube's /watch page
-- The only requests being sent are crash reports. (But crash reports can be turned off.) No other requests are sent to any webserver, website or api. But in case a crash occurs the report is sent to [Sentri.io](https://sentry.io) and will always be deleted after 30 days. Because the only goal of these crash reports is to fix the crash.
+# 개인정보 안내
 
-## Crash report data
-Crash reports, and individual groups of data, can be turned off. But in case a crash report is sent it could contain:
-- The url and video ID being watched at the time of the crash
-- Anonymous technical data
-    - Browser version
-    - Operating system version
-    - Display capabilities
-    - Videoplayer state (Does not contain the video id or title)
-    - YouTube layout state (Does not contain your YouTube account data)
-- Ambient light state and error information
+이 한국어판은 외부 오류 보고 전송 기능을 제거했습니다.
+설정은 브라우저 확장프로그램의 로컬 저장소에 보관하며, 파일 백업은 사용자가 직접 내보내는 JSON 파일로 저장합니다.
+클라우드 백업 기능은 제공하지 않습니다. 조명 처리는 브라우저에서 수행합니다.
+유튜브 재생과 영상 분석에 필요한 유튜브 리소스 요청은 발생할 수 있습니다.

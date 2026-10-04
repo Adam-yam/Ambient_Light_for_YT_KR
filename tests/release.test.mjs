@@ -1,0 +1,42 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import { validateBackup } from '../src/scripts/libs/backup.js';
+import { presets } from '../src/scripts/libs/presets.js';
+import { parseSync, transformFromAstSync } from '@babel/core';
+const source = fs.readFileSync('src/scripts/libs/settings-config.js', 'utf8');
+const config = JSON.parse(vm.runInNewContext(source.slice(source.indexOf('const SettingsConfig'), source.indexOf('export const WebGLOnlySettings')) + 'JSON.stringify(SettingsConfig)'));
+for (const input of [null, [], 'invalid', 1]) assert.throws(() => validateBackup(input, config));
+assert.throws(() => validateBackup({brightness: Infinity}, config));
+assert.throws(() => validateBackup(JSON.parse('{"__proto__":{"polluted":true}}'), config));
+const result = validateBackup({blur:20,brightness:1000,resolution:99,enabled:true,spread:'bad'},config);
+assert.equal(result.settings['setting-blur2'],20);
+assert.equal(result.settings['setting-brightness'],200);
+assert.equal(result.settings['setting-resolution'],100);
+assert.ok(!('setting-spread' in result.settings));
+for (const preset of presets) {
+ const validated = validateBackup(preset.values,config);
+ assert.equal(validated.warnings.length,0);
+ for(const [k,v] of Object.entries(preset.values))assert.equal(validated.settings[`setting-${k}`],v);
+}
+const defaults = Object.fromEntries(config.map(s=>[s.name,s.default]));
+assert.equal(Object.keys(validateBackup(defaults,config).settings).length,config.length);
+const settingsAst = parseSync(fs.readFileSync('src/scripts/libs/settings.js','utf8'),{configFile:false,babelrc:false});
+const cls=settingsAst.program.body.find(n=>n.type==='ExportDefaultDeclaration').declaration;
+const methods=cls.body.body.filter(n=>['flushPendingStorageEntries','flushStorageBatch'].includes(n.key?.name));
+const classAst={type:'File',program:{type:'Program',sourceType:'script',body:[{type:'ClassDeclaration',id:{type:'Identifier',name:'Subject'},superClass:null,body:{type:'ClassBody',body:methods}}],directives:[]}};
+const code=transformFromAstSync(classAst,null,{configFile:false,babelrc:false,comments:false}).code;
+let release;let calls=0;const written=[];
+const storage={set:async(k,v)=>{calls++;written.push(v);if(calls===1)await new Promise(r=>release=r);}};
+const Subject=vm.runInNewContext(code+'; Subject',{storage,clearTimeout,SentryReporter:{captureException(){}}});
+const subject=new Subject();subject.pendingStorageEntries={brightness:80};subject.setWarning=()=>{};subject.logStorageWarningOnce=()=>{};
+const first=subject.flushPendingStorageEntries();subject.pendingStorageEntries.brightness=110;
+const second=subject.flushPendingStorageEntries();const third=subject.flushPendingStorageEntries();release();await Promise.all([first,second,third]);
+assert.deepEqual(written,[80,110]);assert.equal(Object.keys(subject.pendingStorageEntries).length,0);
+subject.pendingStorageEntries={brightness:90};storage.set=async()=>{throw new Error('QuotaExceededError');};await subject.flushPendingStorageEntries();assert.equal(subject.pendingStorageEntries.brightness,90);
+let jsCount=0;
+function walk(dir){for(const e of fs.readdirSync(dir,{withFileTypes:true})){const p=`${dir}/${e.name}`;if(e.isDirectory())walk(p);else if(p.endsWith('.js')){const ast=parseSync(fs.readFileSync(p,'utf8'),{configFile:false,babelrc:false});assert.equal(ast.comments?.length??0,0,p);jsCount++;}}}
+walk('src');walk('dist/scripts');
+const manifest=JSON.parse(fs.readFileSync('dist/manifest.json','utf8'));assert.equal(manifest.version,'2.38.17.7');
+for(const path of [manifest.background.service_worker,manifest.action.default_popup,...Object.values(manifest.icons),...manifest.content_scripts.flatMap(c=>[...(c.js||[]),...(c.css||[])]),...manifest.web_accessible_resources.flatMap(c=>c.resources)])assert.ok(fs.existsSync(`dist/${path}`),path);
+console.log(`PASS: backup validation/default roundtrip, 4 presets, concurrent storage writes/failure retention, ${jsCount} JS syntax/comment checks, manifest references.`);

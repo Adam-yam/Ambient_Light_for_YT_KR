@@ -1,73 +1,62 @@
-[![Google Chrome Web rating](https://img.shields.io/chrome-web-store/rating/paponcgjfojgemddooebbgniglhkajkj?logo=googlechrome&color=brightgreen)](https://chrome.google.com/webstore/detail/youtube-ambilight/paponcgjfojgemddooebbgniglhkajkj) [![Google Chrome users](https://img.shields.io/chrome-web-store/users/paponcgjfojgemddooebbgniglhkajkj?logo=googlechrome&color=blue)](https://chrome.google.com/webstore/detail/youtube-ambilight/paponcgjfojgemddooebbgniglhkajkj) &nbsp; [![Microsoft Edge rating](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcmggdjjjfembmemhleknmfpakmgggjcf&logo=embarcadero&color=brightgreen)](https://microsoftedge.microsoft.com/addons/detail/cmggdjjjfembmemhleknmfpakmgggjcf) [![Microsoft Edge users](https://img.shields.io/badge/dynamic/json?label=users&query=%24.activeInstallCount&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcmggdjjjfembmemhleknmfpakmgggjcf&logo=embarcadero&color=blue)](https://microsoftedge.microsoft.com/addons/detail/cmggdjjjfembmemhleknmfpakmgggjcf) &nbsp; [![Firefox rating](https://img.shields.io/amo/rating/ambient-light-for-youtube?logo=firefoxbrowser)](https://addons.mozilla.org/en-US/firefox/addon/ambient-light-for-youtube/) [![Firefox users](https://img.shields.io/amo/users/ambient-light-for-youtube?logo=firefoxbrowser&color=blue)](https://addons.mozilla.org/en-US/firefox/addon/ambient-light-for-youtube/) &nbsp; [![Opera rating](https://img.shields.io/badge/rating-4.4/5-brightgreen?logo=opera)](https://addons.opera.com/nl/extensions/details/youtube-ambilight/) [![Opera users](https://img.shields.io/badge/downloads-20k-blue?logo=opera)](https://addons.opera.com/nl/extensions/details/youtube-ambilight/)
+# Ambient Light for YT_KR
 
-<a href="https://ko-fi.com/G2G59EK8L" rel="noopener">
-  <img align="right" src="https://github.com/WesselKroos/youtube-ambilight/blob/master/src/images/donate.svg?raw=true" title="Support me via a donation">
-</a>
+버전 2.38.17.7 · 한국어판 제작 Adam-yam
 
-[![Ambient light for YouTube™](https://github.com/WesselKroos/youtube-ambilight/blob/master/assets/heading.png?raw=true)](https://github.com/WesselKroos/youtube-ambilight#readme)
+유튜브 영상 주변에 조명 효과를 표시하는 확장프로그램입니다.
+Wessel Kroos의 Ambient light for YouTube 2.38.17을 바탕으로 제작했습니다.
 
-![Preview](https://github.com/WesselKroos/chrome-youtube-ambilight/blob/master/assets/readme/screenshot-1.jpg?raw=true)
+## 설치 및 업데이트
 
+1. ZIP을 압축 해제합니다.
+2. chrome://extensions에서 개발자 모드를 켭니다.
+3. 압축해제된 확장 프로그램을 로드하고 extension 폴더를 선택합니다.
+4. 유튜브 페이지를 새로고침합니다.
 
-# Ambient light for YouTube™
-Immerse yourself in YouTube videos with ambient light!
+업데이트할 때는 기존 extension 폴더의 내용을 교체하고 확장프로그램의 새로고침 버튼을 누르세요.
+버전 2.38.17.7을 확인한 뒤 유튜브 페이지도 한 번 새로고침하세요.
+원본 확장프로그램이 함께 설치되어 있다면 중복 적용을 피하도록 꺼 주세요.
 
-## Installation
-Go to the extensions site of your browser and add the extension:
+## 기능
 
-[![Google Chrome Web Store](https://github.com/WesselKroos/youtube-ambilight/blob/master/assets/browsers/Google%20Chrome.png?raw=true)](https://chrome.google.com/webstore/detail/youtube-ambilight/paponcgjfojgemddooebbgniglhkajkj)
+- 유튜브 플레이어와 확장프로그램 창에서 프리셋 선택
+- 은은하게 / 영화 / 다이나믹 / 저사양
+- 재생 중 조명 설정 적용
+- 다이나믹: 흐림 20%, 확산 150%
+- 영상 설정 메뉴 하단의 기본값 초기화
+- JSON 파일로 설정 백업 및 복원
 
-[![Microsoft Edge Store](https://github.com/WesselKroos/chrome-youtube-ambilight/blob/master/assets/browsers/Microsoft%20Edge.png?raw=true)](https://microsoftedge.microsoft.com/addons/detail/cmggdjjjfembmemhleknmfpakmgggjcf)
+클라우드 백업, 강도 슬라이더, 후원·평가 링크, 삭제 후 설문 탭과 오류 보고 전송 기능은 제거했습니다.
+파일 백업은 조명 및 화면 설정을 저장합니다. 단축키는 파일 백업 대상에 포함되지 않습니다.
 
-[![Firefox Add-ons](https://github.com/WesselKroos/chrome-youtube-ambilight/blob/master/assets/browsers/Firefox.png?raw=true)](https://addons.mozilla.org/en-US/firefox/addon/ambient-light-for-youtube/)
+## 이번 수정
 
-[![Opera addons](https://github.com/WesselKroos/youtube-ambilight/blob/master/assets/browsers/Opera.png?raw=true)](https://addons.opera.com/nl/extensions/details/youtube-ambilight/)
+- 빠른 설정 변경 중 최신 값이 저장되지 않을 수 있는 문제 보완
+- 저장 실패 시 초기화 완료로 처리하지 않도록 수정
+- 프리셋 렌더링 실패 후 재시도 처리 보완
+- 테마 변경 실패 시 처리 상태가 잠기는 문제 수정
+- 백업 JSON 형식, 숫자 범위, 해상도 선택값 검증
+- 기본값 상태에서도 설정 백업 지원
+- 파일 읽기 오류 처리 및 다운로드 메모리 정리
+- 코드 주석과 사용하지 않는 클라우드 코드·오류 보고 개발 의존성 정리
+- 배포에 필요 없는 원본 디자인 자료 및 소스맵 제외
 
+## 검증 범위
 
-## Minimum requirements
+전체 빌드, ESLint 오류 0개·경고 0개, JavaScript 구문·주석 검사,
+백업 검증, 기본값 백업 복원, 동시 저장 및 저장 실패 처리,
+프리셋 연속 전환·재생 유지 로직과 설치 파일 참조 검사를 통과했습니다.
+실제 Windows Chrome의 유튜브 재생과 GPU별 동작은 이 환경에서 확인하지 못했습니다.
+Chrome 웹스토어 게시와 자동 업데이트 등록은 포함되어 있지 않습니다.
 
-### Performance
-A video card with a score of at least 1000 points in the PassMark Video Card Benchmark is recommended.
-Check your video card's score here:
+## 소스 빌드
 
-https://www.videocardbenchmark.net/gpu_list.php
+source 폴더에서 Node.js 22.5.1 이상으로 npm ci, npm run build를 실행합니다.
+생성된 dist 폴더를 크롬에 로드할 수 있습니다.
+검사: npm test
 
-With a score lower than 1000 the extension will still work but it is likely that the YouTube video page will be slow and/or stuttering.
-> To troubleshoot performance problems or maximize the performance you can follow the checks and steps in the [Troubleshoot guide](https://github.com/WesselKroos/youtube-ambilight/blob/master/TROUBLESHOOT.md)
+## 출처와 라이선스
 
-
-### Browser versions
-| Browser  | Version | Reason |
-| -------- | ------- | ------ |
-| Chromium | 80      | [Optional chaining operator (?.)](https://caniuse.com/mdn-javascript_operators_optional_chaining) |
-| Firefox  | 74      | [Optional chaining operator (?.)](https://caniuse.com/mdn-javascript_operators_optional_chaining) |
-
-
-## Privacy & Security
-Read the [privacy policy](/PRIVACY-POLICY.md)
-
-
-## Report, request or contribute
-Feel free to 
-- contribute to the project at [/youtube-ambilight](https://github.com/WesselKroos/youtube-ambilight)
-- report bugs at [/youtube-ambilight/issues](https://github.com/WesselKroos/youtube-ambilight/issues)
-- request a feature at [/youtube-ambilight/issues](https://github.com/WesselKroos/youtube-ambilight/issues)
-- or ask a question at [/youtube-ambilight/issues](https://github.com/WesselKroos/youtube-ambilight/issues)
-
-
-## Support me
-[![Support me via a donation](https://github.com/WesselKroos/youtube-ambilight/blob/master/src/images/donate.svg?raw=true)](https://ko-fi.com/G2G59EK8L)
-
-
-## Development
-1. Install [Node (LTS)](https://nodejs.org/en/download/)
-2. In the terminal/commandline enter `npm install`.
-3. In the terminal/commandline enter `npm run build`. A `/dist` folder will be generated which contains all the generated files of the extension.
-4. Add the extension to Chrome:
-    1. In Chrome go to the url [chrome://extensions/](chrome://extensions/).
-    2. Turn on the `Developer mode` toggle.
-    3. Click `Load unpacked` and select the `/dist` folder.
-    4. `Ambient light for YouTube™` has been added to the list of extensions.
-5. After you've modified a file in the `/src` folder follow these steps:
-    1. In the terminal/commandline enter `npm run build`
-    2. In Chrome go to the url [chrome://extensions/](chrome://extensions/) and click the refresh/update button in the card of the extension.
+원본: https://github.com/WesselKroos/youtube-ambilight
+한국어판: https://github.com/Adam-yam
+Copyright (c) 2017 Wessel Kroos · MIT License
+LICENSE 파일을 함께 유지해 주세요. 원본 개발자의 공식 배포판은 아닙니다.
